@@ -1,0 +1,312 @@
+﻿<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="format-detection" content="telephone=no">
+<title>MANBOO PROJECT</title>
+
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='15' fill='%23111111'/><text x='35' y='76' font-size='65' font-family='monospace' font-weight='bold' fill='%2355ffff' text-anchor='middle'>&gt;</text><rect x='60' y='68' width='25' height='8' fill='%2355ffff'/></svg>">
+
+<style>
+  /* =========================================
+     1. Layout & Base
+  ========================================= */
+  html, body {
+    overflow-x: hidden;
+    width: 100%;
+  }
+
+  body {
+    background-color: #050505;
+    color: #00ff00;
+    font-family: 'Courier New', monospace;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 3vh;
+    min-height: 100vh;
+    box-sizing: border-box;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  /* =========================================
+     2. Terminal Window
+  ========================================= */
+  #terminal {
+    background-color: #000;
+    border: 2px solid #00ff00;
+    border-radius: 8px;
+    padding: 25px 20px;
+    width: 90%;
+    max-width: 600px;
+    box-shadow: 0 0 20px rgba(0, 255, 0, 0.2);
+    text-shadow: 0 0 5px rgba(0, 255, 0, 0.5);
+    box-sizing: border-box;
+    line-height: 1.6;
+  }
+
+  /* =========================================
+     3. Typography
+  ========================================= */
+  .prompt {
+    display: block;
+    margin-bottom: 15px;
+    word-break: keep-all;
+  }
+
+  .title-manboo {
+    display: block;
+    text-align: center;
+    margin-bottom: 5px;
+    word-break: keep-all;
+    font-weight: bold;
+    color: #ffffff;
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
+    font-size: 24px;
+    letter-spacing: 4px;
+  }
+
+  .title-system {
+    display: block;
+    text-align: center;
+    margin-bottom: 15px;
+    word-break: keep-all;
+    font-weight: bold;
+    color: #00ffff;
+    text-shadow: 0 0 8px rgba(0, 255, 255, 0.6);
+  }
+
+  .error-msg {
+    display: none;
+    color: #ff5555;
+    margin-top: 15px;
+    font-weight: bold;
+    word-break: keep-all;
+    text-shadow: 0 0 8px rgba(255, 85, 85, 0.6);
+  }
+
+  /* =========================================
+     4. Hifumi Message Layer
+  ========================================= */
+  .hifumi-msg-wrapper {
+    display: none;
+    margin-top: 15px;
+    text-align: left;
+    word-break: keep-all;
+  }
+
+  .sys-h {
+    color: #00ff00;
+    font-family: 'Courier New', monospace;
+    font-size: 16px;
+    font-weight: normal;
+    text-shadow: 0 0 5px rgba(0, 255, 0, 0.5);
+    margin-right: 5px;
+  }
+
+  .hifumi-text {
+    color: #cccccc;
+    font-family: "MS Gothic", "ＭＳ ゴシック", "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", sans-serif;
+    font-size: 14px;
+    font-weight: normal;
+    text-shadow: none;
+  }
+
+  /* =========================================
+     5. Input Area
+  ========================================= */
+  .input-area {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 8px;
+    margin-top: 0px;
+  }
+
+  .cmd-mark {
+    white-space: nowrap;
+  }
+
+  input[type="text"] {
+    background-color: black;
+    color: #ffffff; 
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+    border: 1px solid #00ff00;
+    padding: 10px;
+    font-family: 'Courier New', monospace;
+    font-size: 16px;
+    flex-grow: 1;
+    min-width: 0;
+    outline: none;
+  }
+
+  input[type="text"]:focus {
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+  }
+
+  button {
+    background-color: #00ff00;
+    color: black;
+    border: none;
+    padding: 10px 15px;
+    font-family: 'Courier New', monospace;
+    font-size: 16px;
+    cursor: pointer;
+    font-weight: bold;
+    white-space: nowrap;
+    transition: 0.2s;
+  }
+
+  button:hover {
+    background-color: #ffffff;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
+  }
+
+  /* =========================================
+     6. Utilities & Animations
+  ========================================= */
+  .emoji-fix {
+    color: transparent !important;
+    text-shadow: 0 0 0 #ff55ff !important;
+    font-family: "MS Gothic", "ＭＳ ゴシック", sans-serif !important;
+  }
+
+  @keyframes alert-pulse {
+    0%, 49% { opacity: 1; text-shadow: 0 0 8px #ff5555; }
+    50%, 100% { opacity: 0.3; text-shadow: none; }
+  }
+  .alert-pulse {
+    animation: alert-pulse 1.2s infinite linear;
+  }
+
+  /* =========================================
+     7. Responsive (Mobile)
+  ========================================= */
+  @media screen and (max-width: 480px) {
+    #terminal, input[type="text"], button {
+      font-size: 13px;
+    }
+    input[type="text"] {
+      width: 100px;
+      padding: 8px;
+      font-size: 16px;
+    }
+    button {
+      padding: 8px 10px;
+    }
+    .sys-h, .hifumi-text {
+      font-size: 12px;
+    }
+  }
+</style>
+</head>
+<body>
+
+  <div id="terminal">
+    <span class="title-manboo">MANBOO PROJECT</span>
+    <span class="title-system">*** SYSTEM BOOT ***</span>
+    
+    <span class="prompt">A:\> 認証システムを起動しました。</span>
+    <span class="prompt" style="color: #ff5555; font-weight: bold; text-shadow: 0 0 8px rgba(255, 85, 85, 0.6);">A:\> [WARN] 不正なアクセスを検知しました。</span>
+    
+    <div style="margin-top: 15px; margin-bottom: 20px; border-top: 1px dashed #ffff00; border-bottom: 1px dashed #ffff00; padding: 12px 0;">
+      <span style="display: block; color: #ffff00; margin-bottom: 12px;">X:\> 侵入者駆逐プログラムを起動中...</span>
+      
+      <span style="display: block; color: #00ffff; margin-bottom: 12px; font-weight: bold;">
+        X:\> 駆逐完了：<span id="fakeCounter" style="background-color: #00ffff; color: #000; font-family: 'Courier New', monospace; font-size: 18px; font-weight: bold; letter-spacing: 3px; padding: 2px 8px; box-shadow: 0 0 8px rgba(0, 255, 255, 0.5);">00000000</span>
+      </span>
+      
+      <span class="alert-pulse" style="display: block; color: #ff5555; margin-bottom: 12px; font-weight: bold;">
+        X:\> 駆逐失敗：<span style="background-color: #ff5555; color: #000; font-family: 'Courier New', monospace; font-size: 18px; font-weight: bold; letter-spacing: 3px; padding: 2px 8px; box-shadow: 0 0 8px rgba(255, 85, 85, 0.5);">00000002</span>
+      </span>
+      
+      <span style="display: block; color: #ffff00;">X:\> 侵入者駆逐プログラムを終了します。</span>
+    </div>
+    
+    <span class="prompt">A:\> 残存2体 禁断の時空の扉 強制解錠中...</span>
+    
+    <div class="input-area">
+      <span class="cmd-mark">A:\></span>
+      <input type="text" id="passInput" placeholder="INPUT CODE" autocomplete="off">
+      <button onclick="checkPassword()">ENTER</button>
+    </div>
+
+    <span id="errorMsg" class="error-msg">A:\> [ERROR] 認証に失敗しました。</span>
+    
+    <div id="hifumiMsg" class="hifumi-msg-wrapper">
+      <span class="sys-h">H:\> </span><span class="hifumi-text">ちがうよ？ 早くわたしと『同期』して<span class="emoji-fix">♪&#xFE0E;</span></span>
+    </div>
+  </div>
+
+  <script>
+    // --- 駆逐カウンター（8桁・ランダム生成） ---
+    const randomCount = Math.floor(Math.pow(10, Math.random() * 8));
+    document.getElementById("fakeCounter").innerText = randomCount.toString().padStart(8, '0');
+
+    const passInput = document.getElementById("passInput");
+    const errorMsg = document.getElementById("errorMsg");
+    const hifumiMsg = document.getElementById("hifumiMsg");
+    let resetTimer;
+
+    // Enterキーでの送信処理
+    passInput.addEventListener("keypress", function(event) {
+      if (event.key === "Enter") {
+        event.preventDefault();
+        checkPassword();
+      }
+    });
+
+    function checkPassword() {
+      const input = passInput.value.trim();
+      if (input === "") return;
+
+      const secret = atob("bGVnZW5kLWl0dGV0c3U=");
+
+      if (input === secret) {
+        const targetUrl = "ittetsu1/" + input + ".html";
+        
+        clearTimeout(resetTimer);
+        
+        document.querySelector(".input-area").style.display = "none";
+        errorMsg.style.display = "none";
+        
+        hifumiMsg.innerHTML = 
+          "<span style='color: #00ff00; font-family: \"Courier New\", monospace; text-shadow: 0 0 5px rgba(0,255,0,0.5);'>A:\\> [SUCCESS] 解錠・同期が完了しました。</span><br><br>" +
+          "<span class='sys-h'>H:\\> </span><span class='hifumi-text'>･･･ふふっ<span class='emoji-fix'>♪&#xFE0E;</span><br>" +
+          "<span class='sys-h'>H:\\> </span>これでキミのぜんぶ、わたしのシステムと<br>" +
+          "<span class='sys-h'>H:\\> </span>完全に『同期完了』だね･･･。<br>" +
+          "<span class='sys-h'>H:\\> </span><br>" +
+          "<span class='sys-h'>H:\\> </span>ぜーんぶ、わたしのもの<span class='emoji-fix'>♪&#xFE0E;</span></span>";
+        
+        hifumiMsg.style.display = "block";
+        
+        setTimeout(function() {
+          window.location.href = targetUrl;
+        }, 8000);
+
+      } else {
+        errorMsg.style.display = "block";
+        hifumiMsg.style.display = "block";
+        
+        const hifumiText = hifumiMsg.querySelector(".hifumi-text");
+        if (hifumiText) {
+          hifumiText.innerHTML = "ちがうよ？ 早くわたしと『同期』して<span class='emoji-fix'>♪&#xFE0E;</span>";
+        }
+        
+        passInput.value = "";
+        passInput.focus();
+
+        clearTimeout(resetTimer);
+        resetTimer = setTimeout(function() {
+          errorMsg.style.display = "none";
+          hifumiMsg.style.display = "none";
+        }, 4500);
+      }
+    }
+  </script>
+
+</body>
+</html>

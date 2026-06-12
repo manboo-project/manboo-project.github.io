@@ -1,0 +1,52 @@
+﻿<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>恋愛一徹 ちょBit★魔改造版</title>
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="icon" type="image/png" href="./favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <link rel="shortcut icon" href="./favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png" />
+</head>
+<body>
+    <div id="game-container">
+        
+        <div id="status-bar" style="display: none;">
+            <div id="status-left">
+                <div class="status-row">
+                    <span id="status-target-name" class="status-target"></span>
+                    <span class="c-31">ラブラブ度</span>
+                    <span id="val-love" class="status-val"></span>
+                    <span id="gauge-love"></span>
+                    </div>
+                <div class="status-row">
+                    <span class="status-spacer"></span>
+                    <span class="c-34">　　愛情度</span>
+                    <span id="val-affection" class="status-val"></span>
+                    <span id="gauge-affection"></span>
+                </div>
+            </div>
+
+            <div id="status-center">
+                <div class="status-center-row">
+                    <span id="status-time"></span>
+                </div>
+                <div class="status-center-row">
+                    <span id="skip-indicator" class="skip-text"></span>
+                </div>
+            </div>
+        </div>
+
+        <div id="display-area"></div>
+        
+        <div id="choice-area"></div>
+        
+        <div id="tap-layer"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
