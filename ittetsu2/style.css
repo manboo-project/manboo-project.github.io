@@ -65,6 +65,7 @@ body {
     overscroll-behavior-y: none;
     word-break: break-all;
     overflow-wrap: break-word;
+    -webkit-touch-callout: none;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
@@ -140,12 +141,15 @@ body {
     height: 100%;
     position: relative;
     overflow-y: auto;
+    overflow-x: hidden;
     -webkit-overflow-scrolling: touch;
     padding: 0 0 10px 0;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
     align-items: center;
+    overscroll-behavior-x: none;
+    touch-action: pan-y;
 }
 
 /* --- コンテンツ幅の制限 --- */
@@ -938,6 +942,65 @@ body {
 .sr-spacer { margin-top: 100px; margin-bottom: 100px; }
 .sr-thanks { font-size: 19px; font-weight: bold; }
 .sr-end    { font-size: 14px; letter-spacing: 1px; }
+
+/* --- わら人形連打モード用スタイル --- */
+#wara-game-area {
+    text-align: center;
+    margin: 0px 0 10px 0; 
+}
+
+#wara-time {
+    font-size: 24px; 
+    color: #ffff00;
+    font-family: monospace;
+}
+
+#wara-count {
+    font-size: 30px; 
+    font-weight: bold;
+    color: #ff5555;
+    margin-top: 10px;
+    white-space: nowrap;
+}
+
+.wara-count-crit {
+    color: #ffff55 !important;
+    text-shadow: 0 0 15px #ffaa00, 0 0 30px #ff0000 !important;
+}
+
+#wara-scream {
+    height: 40px; 
+    font-size: 26px; 
+    font-weight: bold;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    opacity: 0;
+    position: relative;
+    z-index: 10; 
+    pointer-events: none;
+}
+
+.wara-scream-normal {
+    font-family: "MS Gothic", "ＭＳ ゴシック", "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", sans-serif;
+    font-style: normal;
+    color: #ff55ff;
+    text-shadow: 2px 2px 2px #000;
+}
+
+.wara-scream-crit {
+    font-family: sans-serif;
+    font-style: italic;
+    color: #55ffff;
+    text-shadow: 0 0 10px #0000ff, 2px 2px 0px #000;
+}
+
+.wara-hit-btn {
+    height: 75px;
+    max-width: 90%;
+    font-size: 20px;
+    font-weight: bold;
+    touch-action: none;
+}
 
 /* =========================================================
    12. スマートフォン向け調整 (Responsive / Mobile)
