@@ -179,6 +179,15 @@ body {
     animation: breathing 3s ease-in-out infinite;
 }
 
+.secret-blink {
+    display: inline-block;
+    width: 1px;
+    margin-right: -1px;
+    overflow: visible;
+    white-space: nowrap;
+    animation: breathing 3s ease-in-out infinite;
+}
+
 .arrow-char {
     display: inline-block;
     opacity: 0;           

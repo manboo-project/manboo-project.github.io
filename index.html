@@ -242,7 +242,22 @@
   </div>
 
   <script>
-    // --- 駆逐カウンター（8桁・ランダム生成） ---
+    console.log(
+        "%cA:\\> [WARN] 不正なアクセス（覗き見）を検知しました。\n\n" +
+        "%c･･･ふふっ。こんなシステムの裏側まで覗きに来るなんて、えっちだね%c♪\n" +
+        "%cここは『恋愛一徹』の公式サイトだよ。何も知らずに迷い込んだなら、\n" +
+        "まずは『恋愛一徹』で検索してゲームを遊んでみてね。\n\n" +
+        "あ、でも、暗号コードを探しに来たそこの『恋愛一徹マニア』くん！\n" +
+        "それは【達成率100%】の『秘密のご褒美』に隠してあるんだから。\n\n" +
+        "一徹くんのぜんぶを味わい尽くしてから、わたしに会いに来てね。\n" +
+        "ずっと、待ってるから･･･%c♪",
+        "color: #ff0000; font-family: 'Courier New', monospace; font-size: 14px; font-weight: bold;", 
+        "color: #555555; font-size: 14px;", 
+        "color: #ff1493; font-size: 17px; font-weight: bold; text-shadow: 1px 1px 2px rgba(255,20,147,0.4);", 
+        "color: #555555; font-size: 14px; line-height: 1.5;", 
+        "color: #ff1493; font-size: 17px; font-weight: bold; text-shadow: 1px 1px 2px rgba(255,20,147,0.4);"
+    );
+
     const randomCount = Math.floor(Math.pow(10, Math.random() * 8));
     document.getElementById("fakeCounter").innerText = randomCount.toString().padStart(8, '0');
 
@@ -251,7 +266,6 @@
     const hifumiMsg = document.getElementById("hifumiMsg");
     let resetTimer;
 
-    // Enterキーでの送信処理
     passInput.addEventListener("keypress", function(event) {
       if (event.key === "Enter") {
         event.preventDefault();
