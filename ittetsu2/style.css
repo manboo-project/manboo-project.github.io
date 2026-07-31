@@ -634,6 +634,11 @@ body {
     color: #ffffff;
 }
 
+.collection-footer-msg {
+    text-align: center;
+    margin-top: 20px;
+}
+
 .dashed-line { border-bottom: 1px dashed #555555; margin: 12px 0; }
 
 .event-grid {
@@ -831,6 +836,16 @@ body {
     font-size: inherit;
     padding-left: 10px;
 }
+.dev-accordion-content.center-text {
+    text-align: center;
+}
+#copy-code-btn {
+    margin-top: -3px;
+    margin-bottom: 5px;
+}
+.bold-text {
+    font-weight: bold;
+}
 
 /* --- 開発室用の暗号コード表示ボックス --- */
 .dev-code-box {
@@ -848,6 +863,20 @@ body {
     font-family: "Courier New", monospace;
     user-select: text;
     -webkit-user-select: text;
+}
+
+/* --- 選択・コピーを許可するテキスト用 --- */
+.selectable-word {
+    user-select: text;
+    -webkit-user-select: text;
+    cursor: text;
+    display: inline-block;
+    background-color: rgba(255, 255, 255, 0.15);
+    padding: 2px 8px;
+    border-radius: 4px;
+    border-bottom: 1px dashed currentColor;
+    margin-bottom: 4px;
+    font-weight: bold;
 }
 
 /* --- 隠しタイトル（イースターエッグ）用スタイル --- */
@@ -1003,12 +1032,256 @@ body {
     text-shadow: 0 0 10px #0000ff, 2px 2px 0px #000;
 }
 
+.wara-crit-float {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    top: 70px;
+    pointer-events: none;
+    z-index: 100;
+    font-size: 32px;
+    font-weight: 900;
+    animation: wara-crit-anim 1.0s ease-out forwards;
+}
+
+@keyframes wara-crit-anim {
+    0% {
+        opacity: 1;
+        transform: scale(1.6) rotate(-15deg);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-80px) scale(1.2) rotate(-5deg);
+    }
+}
+
+.wara-scream-anim {
+    animation: wara-scream-fly 0.4s ease-out forwards;
+}
+
+@keyframes wara-scream-fly {
+    0% {
+        opacity: 1;
+        transform: scale(1.8) rotate(0deg);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-20px) scale(1) rotate(0deg);
+    }
+}
+
+.wara-final-anim {
+    animation: wara-final-float 2.0s ease-out forwards;
+    will-change: transform, opacity;
+}
+
+@keyframes wara-final-float {
+    0% {
+        opacity: 0;
+        transform: translateY(20px) scale(1) translateZ(0);
+    }
+    100% {
+        opacity: 0.8;
+        transform: translateY(0px) scale(1.001) translateZ(0);
+    }
+}
+
 .wara-hit-btn {
     height: 75px;
     max-width: 90%;
     font-size: 20px;
     font-weight: bold;
     touch-action: none;
+}
+
+/* --- どれみの婚姻届大作戦用スタイル --- */
+#hanko-game-area {
+    text-align: center;
+    margin: 10px auto;
+    width: 100%;
+    max-width: 320px;
+}
+
+#hanko-message {
+    font-size: 15px;
+    color: #cccccc;
+    min-height: 45px;
+    margin-bottom: 0px;
+    line-height: 1.4;
+}
+
+#hanko-status-info {
+    font-size: 20px;
+    font-weight: bold;
+    color: #ffff55;
+    margin-bottom: 5px;
+    font-family: monospace;
+    display: flex;
+    padding: 0 10px;
+    height: 35px;
+    align-items: center;
+}
+
+#hanko-time-info {
+    flex: 1;
+    text-align: center;
+}
+
+#hanko-count-info {
+    text-align: right;
+}
+
+.hanko-countdown-num {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.hanko-mash-count-num {
+    display: inline-block;
+    width: 1.5em;
+    text-align: right;
+}
+
+#hanko-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3px;
+    margin: 0 auto;
+}
+
+.hanko-btn {
+    background-color: #333;
+    color: #fff;
+    border: 2px solid #555;
+    border-radius: 8px;
+    font-size: 32px;
+    font-weight: bold;
+    padding: 15px 0;
+    cursor: pointer;
+    transition: 0.1s;
+    touch-action: none;
+    position: relative;
+    overflow: hidden;
+}
+
+.flash-hanko {
+    background-color: #ff66b2 !important;
+    color: #fff !important;
+    border-color: #fff !important;
+    box-shadow: 0 0 20px #ff66b2;
+}
+
+.mash-mode-hanko .hanko-btn {
+    background-color: #ff0000;
+    color: #ffff00;
+    border-color: #ffaaaa;
+}
+
+.mash-mode-hanko .hanko-btn:active {
+    background-color: #ffffff;
+    color: #ff0000;
+}
+
+.guide-stamp {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+    rotate: -10deg;
+    color: #ffff55;
+    font-size: 28px;
+    font-weight: bold;
+    text-shadow: 
+        3px 3px 0 #000, -3px -3px 0 #000, 
+        3px -3px 0 #000, -3px 3px 0 #000,
+        0px 3px 0 #000, 0px -3px 0 #000,
+        3px 0px 0 #000, -3px 0px 0 #000,
+        0px 0px 10px rgba(0, 0, 0, 1),
+        0px 0px 15px rgba(0, 0, 0, 1);
+    pointer-events: none;
+    z-index: 10;
+    white-space: nowrap;
+    animation: stamp-anim-guide 0.4s ease-out forwards;
+}
+
+.push-stamp {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+    rotate: -20deg;
+    color: #ee0000;
+    font-size: 24px;
+    font-weight: 900;
+    letter-spacing: 2px;
+    border: 3px solid #ee0000;
+    border-radius: 6px;
+    padding: 2px 6px 2px 8px; 
+    background-color: rgba(255, 255, 255, 1.0); 
+    box-shadow: 2px 2px 8px rgba(0,0,0,0.8);
+    pointer-events: none;
+    z-index: 10;
+    white-space: nowrap;
+    animation: stamp-anim-push 0.3s ease-out forwards;
+}
+
+.mash-stamp {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+    color: #ee0000;
+    font-size: 30px;
+    font-weight: 900;
+    border: 3px dotted #ee0000;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    line-height: 46px;
+    text-align: center;
+    background-color: rgba(255, 255, 255, 1.0); 
+    box-shadow: 2px 2px 8px rgba(0,0,0,0.8);
+    pointer-events: none;
+    z-index: 10;
+    animation: stamp-anim-push 0.25s ease-out forwards;
+}
+
+.shout-text {
+    position: fixed;
+    color: #ff3399;
+    font-size: 34px;
+    font-weight: 900;
+    text-shadow: 
+        2px 2px 0 #fff, -2px -2px 0 #fff, 
+        2px -2px 0 #fff, -2px 2px 0 #fff,
+        0px 0px 12px rgba(255, 51, 153, 0.8);
+    pointer-events: none;
+    z-index: 9999;
+    
+    white-space: nowrap; 
+    
+    animation: shout-anim-cute 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; 
+}
+
+@keyframes stamp-anim-guide {
+    0% { scale: 2; opacity: 0; }
+    20% { scale: 1; opacity: 1; }
+    80% { scale: 1; opacity: 1; }
+    100% { scale: 0.5; opacity: 0; }
+}
+
+@keyframes stamp-anim-push {
+    0% { scale: 2; opacity: 0; }
+    20% { scale: 1; opacity: 1; }
+    80% { scale: 1; opacity: 1; }
+    100% { scale: 1.2; opacity: 0; }
+}
+
+@keyframes shout-anim-cute {
+    0% { scale: 0.5; opacity: 0; rotate: -15deg; }
+    40% { scale: 1.2; opacity: 1; rotate: 5deg; }
+    70% { scale: 1; opacity: 1; translate: 0 0; rotate: 0deg; }
+    100% { scale: 1.1; opacity: 0; translate: 0 -40px; }
 }
 
 /* =========================================================
